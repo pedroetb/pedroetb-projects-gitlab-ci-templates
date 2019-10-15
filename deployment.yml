@@ -1,0 +1,14 @@
+include:
+  - local: '/_deployment.yml'
+
+deploy-branch:
+  extends: .deploy
+  only:
+    - branches
+  except:
+    - schedules
+
+deploy-tag:
+  extends: .deploy
+  only:
+    - tags
