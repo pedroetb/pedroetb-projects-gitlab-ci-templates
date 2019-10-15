@@ -12,8 +12,6 @@ variables:
   STATUS_CHECK_INTERVAL: 20
   STATUS_CHECK_DELAY: 120
   STATUS_CHECK_MIN_HITS: 3
-  DEPLOY_ENVIRONMENT_NAME: environment
-  DEPLOY_TRIGGER: manual
 
 .deploy:
   stage: deploy
@@ -24,5 +22,5 @@ variables:
   script:
     - deploy.sh
   environment:
-    name: ${DEPLOY_ENVIRONMENT_NAME}
-  when: ${DEPLOY_TRIGGER}
+    name: environment
+  when: manual
