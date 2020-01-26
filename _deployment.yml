@@ -1,12 +1,10 @@
-variables:
-  DOCKER_DEPLOY_IMAGE_NAME: redmic/docker-docker-deploy
-  DOCKER_DEPLOY_IMAGE_TAG: latest
-
 .deploy:
   stage: deploy
   dependencies: []
   image: ${DOCKER_DEPLOY_IMAGE_NAME}:${DOCKER_DEPLOY_IMAGE_TAG}
   variables:
+    DOCKER_DEPLOY_IMAGE_NAME: redmic/docker-docker-deploy
+    DOCKER_DEPLOY_IMAGE_TAG: latest
     SSH_REMOTE: <user@remote>
     DEPLOY_KEY: <rsa-private-key>
     STACK: ${CI_PROJECT_NAME}
@@ -18,8 +16,7 @@ variables:
     STATUS_CHECK_INTERVAL: 20
     STATUS_CHECK_DELAY: 120
     STATUS_CHECK_MIN_HITS: 3
-  script:
-    - deploy.sh
+  script: deploy
   environment:
     name: environment
   when: manual
