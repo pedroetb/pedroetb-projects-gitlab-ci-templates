@@ -3,11 +3,6 @@ include:
     ref: master
     file: '/_packaging.yml'
 
-stages:
-  - pre-package
-  - package
-  - post-package
-
 .docker-operations:
   extends: .docker-env
   image: ${DOCKER_BUILD_IMAGE_NAME}:${DOCKER_BUILD_IMAGE_TAG}
