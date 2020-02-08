@@ -1,11 +1,3 @@
-include:
-  - project: 'pedroetb-projects/gitlab-ci-templates'
-    ref: master
-    file: '/_packaging.yml'
-  - project: 'pedroetb-projects/gitlab-ci-templates'
-    ref: master
-    file: '/_docker-build.yml'
-
 .docker-operations:
   variables:
     LATEST_TAG_VALUE: arm-latest
