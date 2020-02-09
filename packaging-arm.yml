@@ -11,15 +11,14 @@ docker-build-arm:
   <<: *docker-operations-arm
 
 .docker-tag-arm: &docker-tag-arm
+  <<: *docker-operations-arm
   variables:
     NEW_IMAGE_TAG: arm-${CI_COMMIT_TAG}
 
 docker-tag-gitlab-arm:
   extends: .docker-tag-gitlab
-  <<: *docker-operations-arm
   <<: *docker-tag-arm
 
 docker-tag-dockerhub-arm:
   extends: .docker-tag-dockerhub
-  <<: *docker-operations-arm
   <<: *docker-tag-arm
