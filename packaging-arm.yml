@@ -1,5 +1,5 @@
-.docker-operations-arm: &docker-operations-arm
-  variables:
+.docker-operations-arm:
+  variables: &docker-operations-arm-variables
     LATEST_TAG_VALUE: arm-latest
     PACKAGED_IMAGE_TAG: arm-${CI_COMMIT_SHA}
     SSH_BUILD_REMOTE: ${ARM_SSH_BUILD_REMOTE}
@@ -8,17 +8,20 @@
 
 docker-build-arm:
   extends: .docker-build
-  <<: *docker-operations-arm
-
-.docker-tag-arm: &docker-tag-arm
-  <<: *docker-operations-arm
   variables:
+    <<: *docker-operations-arm-variables
+
+.docker-tag-arm:
+  variables: &docker-tag-arm-variables
+    <<: *docker-operations-arm-variables
     NEW_IMAGE_TAG: arm-${CI_COMMIT_TAG}
 
 docker-tag-gitlab-arm:
   extends: .docker-tag-gitlab
-  <<: *docker-tag-arm
+  variables:
+    <<: *docker-tag-arm-variables
 
 docker-tag-dockerhub-arm:
   extends: .docker-tag-dockerhub
-  <<: *docker-tag-arm
+  variables:
+    <<: *docker-tag-arm-variables
