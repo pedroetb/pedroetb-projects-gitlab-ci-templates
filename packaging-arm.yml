@@ -25,3 +25,4 @@ docker-tag-dockerhub-arm:
   extends: .docker-tag-dockerhub
   variables:
     <<: *docker-tag-arm-variables
+  script: tag ${PACKAGED_IMAGE_NAME}:${PACKAGED_IMAGE_TAG} \$(flatten):${NEW_IMAGE_TAG}
