@@ -1,16 +1,23 @@
 include:
-  - project: 'pedroetb-projects/gitlab-ci-templates'
-    ref: master
-    file: '/_packaging.yml'
-  - project: 'pedroetb-projects/gitlab-ci-templates'
-    ref: master
-    file: '/_docker-build.yml'
+  - local: '/_packaging.yml'
+  - local: '/_docker-build.yml'
 
 docker-build:
   extends: .docker-build
+  only:
+    - branches
+    - tags
+  except:
+    - schedules
+
+.docker-tag-context: &docker-tag-context
+  only:
+    - tags
 
 docker-tag-gitlab:
   extends: .docker-tag-gitlab
+  <<: *docker-tag-context
 
 docker-tag-dockerhub:
   extends: .docker-tag-dockerhub
+  <<: *docker-tag-context

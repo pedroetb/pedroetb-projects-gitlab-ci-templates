@@ -14,20 +14,13 @@
   extends: .docker-operations
   stage: package
   script: build
-  only:
-    - branches
-    - tags
-  except:
-    - schedules
 
 .docker-tag:
   extends: .docker-operations
   stage: post-package
+  dependencies: []
   variables:
     NEW_IMAGE_TAG: ${CI_COMMIT_TAG}
-  dependencies: []
-  only:
-    - tags
 
 .docker-tag-gitlab:
   extends: .docker-tag
