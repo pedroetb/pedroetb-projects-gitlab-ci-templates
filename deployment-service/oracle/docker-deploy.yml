@@ -1,0 +1,24 @@
+include:
+  - local: '/deployment-service/_docker-deploy.yml'
+
+.deploy-oracle:
+  extends:
+    - .deploy
+  variables:
+    SSH_REMOTE: ${ORACLE_SSH_REMOTE}
+    SSH_PORT: ${ORACLE_SSH_PORT}
+    DEPLOY_KEY: ${ORACLE_DEPLOY_KEY}
+    TRAEFIK_DOMAIN: ${ORACLE_TRAEFIK_DOMAIN}
+    DD_TRAEFIK_DOMAIN: ${ORACLE_TRAEFIK_DOMAIN}
+  environment:
+    name: oracle
+
+deploy-branch-oracle:
+  extends:
+    - .deploy-oracle
+    - .deploy-branch
+
+deploy-tag-oracle:
+  extends:
+    - .deploy-oracle
+    - .deploy-tag

@@ -1,0 +1,51 @@
+include:
+  - local: '/deployment-service/_base.yml'
+
+.deploy:
+  extends: .docker-deploy-base
+  stage: deploy
+  variables:
+    DEPLOY_DIR_NAME: deploy
+    NEW_COMPOSE_FILE: compose.yaml
+    OLD_COMPOSE_FILE: docker-compose.yml
+  before_script:
+    - echo "Find Compose files with known names automatically .."
+    - >
+      if [ -z ${COMPOSE_FILE} ];
+      then
+        if [ -f ${DEPLOY_DIR_NAME}/${NEW_COMPOSE_FILE} ];
+        then
+          echo "Detected '${NEW_COMPOSE_FILE}' compose file, nice!";
+          composeFile="${NEW_COMPOSE_FILE}";
+        elif [ -f ${DEPLOY_DIR_NAME}/${OLD_COMPOSE_FILE} ];
+        then
+          echo "Detected '${OLD_COMPOSE_FILE}' compose file (old naming)";
+          composeFile="${OLD_COMPOSE_FILE}";
+        else
+          echo "No compose file specified or detected, using docker-deploy default for COMPOSE_FILE";
+        fi;
+        if [ ! -z ${composeFile} ];
+        then
+          echo "Automatically set COMPOSE_FILE to '${composeFile}'";
+          export COMPOSE_FILE="${composeFile}";
+        fi;
+      else
+        echo "COMPOSE_FILE is defined, omitting automatic lookup";
+      fi;
+  script: deploy
+
+.deploy-branch:
+  rules:
+    - if: $CI_MERGE_REQUEST_ID ||
+          $CI_COMMIT_TAG ||
+          $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_BRANCH
+      when: manual
+      allow_failure: true
+
+.deploy-tag:
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: manual
+      allow_failure: true
