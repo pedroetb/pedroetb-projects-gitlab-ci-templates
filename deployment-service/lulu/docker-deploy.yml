@@ -1,0 +1,24 @@
+include:
+  - local: '/deployment-service/_docker-deploy.yml'
+
+.deploy-lulu:
+  extends:
+    - .deploy
+  variables:
+    SSH_REMOTE: ${LULU_SSH_REMOTE}
+    SSH_PORT: ${LULU_SSH_PORT}
+    DEPLOY_KEY: ${LULU_DEPLOY_KEY}
+    TRAEFIK_DOMAIN: ${LULU_TRAEFIK_DOMAIN}
+    DD_TRAEFIK_DOMAIN: ${LULU_TRAEFIK_DOMAIN}
+  environment:
+    name: lulu
+
+deploy-branch-lulu:
+  extends:
+    - .deploy-lulu
+    - .deploy-branch
+
+deploy-tag-lulu:
+  extends:
+    - .deploy-lulu
+    - .deploy-tag
