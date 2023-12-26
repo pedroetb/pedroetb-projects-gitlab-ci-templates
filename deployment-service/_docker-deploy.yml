@@ -5,7 +5,6 @@ include:
   extends: .docker-deploy-base
   stage: deploy
   variables:
-    DEPLOY_DIR_NAME: deploy
     NEW_COMPOSE_FILE: compose.yaml
     OLD_COMPOSE_FILE: docker-compose.yml
   before_script:
@@ -13,11 +12,13 @@ include:
     - >
       if [ -z ${COMPOSE_FILE} ];
       then
-        if [ -f ${DEPLOY_DIR_NAME}/${NEW_COMPOSE_FILE} ];
+        newComposeFilePath=$(find -name "${NEW_COMPOSE_FILE}");
+        oldComposeFilePath=$(find -name "${OLD_COMPOSE_FILE}");
+        if [ -f ${newComposeFilePath} ];
         then
           echo "Detected '${NEW_COMPOSE_FILE}' compose file, nice!";
           composeFile="${NEW_COMPOSE_FILE}";
-        elif [ -f ${DEPLOY_DIR_NAME}/${OLD_COMPOSE_FILE} ];
+        elif [ -f ${oldComposeFilePath} ];
         then
           echo "Detected '${OLD_COMPOSE_FILE}' compose file (old naming)";
           composeFile="${OLD_COMPOSE_FILE}";
