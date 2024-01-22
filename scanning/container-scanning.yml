@@ -4,6 +4,24 @@ include:
 
 container_scanning:
   stage: post-package
+  variables:
+    DOCKERFILE_NAME: Dockerfile
+  before_script:
+    - echo "Find Dockerfile in depth automatically by file name .."
+    - >
+      if [ ! -z "${CS_DOCKERFILE_PATH}" ] && [ -f "${CS_DOCKERFILE_PATH}" ];
+      then
+        echo "CS_DOCKERFILE_PATH is defined and file exists, omitting automatic lookup";
+      else
+        dockerfilePath=$(find -name "${DOCKERFILE_NAME}");
+        if [ -f "${dockerfilePath}" ];
+        then
+          echo "Detected '${dockerfilePath}' Dockerfile, nice!";
+          export CS_DOCKERFILE_PATH="${dockerfilePath}";
+        else
+          echo "CS_DOCKERFILE_PATH is undefined and Dockerfile with name '${DOCKERFILE_NAME}' not found in project!";
+        fi;
+      fi;
   rules:
     - if: $CONTAINER_SCANNING_DISABLED == 'true' || $CONTAINER_SCANNING_DISABLED == '1'
       when: never
