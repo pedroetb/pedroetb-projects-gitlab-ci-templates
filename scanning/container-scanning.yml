@@ -5,6 +5,7 @@ include:
 container_scanning:
   stage: post-package
   variables:
+    GIT_STRATEGY: fetch
     DOCKERFILE_NAME: Dockerfile
   before_script:
     - echo "Find Dockerfile in depth automatically by file name .."
