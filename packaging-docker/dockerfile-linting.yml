@@ -17,7 +17,7 @@ lint-dockerfile:
     - >
       if [ -z "${DOCKERFILE_PATH}" ];
       then
-        dockerfilePath=$(find -name "${DOCKERFILE_NAME}");
+        dockerfilePath=$(find -type f -name "${DOCKERFILE_NAME}" | head -1);
         if [ -f "${dockerfilePath}" ];
         then
           echo "Detected '${dockerfilePath}' Dockerfile, nice!";
