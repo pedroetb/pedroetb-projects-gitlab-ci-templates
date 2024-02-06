@@ -1,0 +1,24 @@
+include:
+  - local: '/deployment-service/_docker-deploy.yml'
+
+.deploy-museo:
+  extends:
+    - .deploy
+  variables:
+    SSH_REMOTE: ${MUSEO_SSH_REMOTE}
+    SSH_PORT: ${MUSEO_SSH_PORT}
+    DEPLOY_KEY: ${MUSEO_DEPLOY_KEY}
+    DD_TRAEFIK_DOMAIN: ${MUSEO_TRAEFIK_DOMAIN}
+    DD_VOL_ADDR: ${MUSEO_VOL_ADDR}
+  environment:
+    name: museo
+
+deploy-branch-museo:
+  extends:
+    - .deploy-museo
+    - .deploy-branch
+
+deploy-tag-museo:
+  extends:
+    - .deploy-museo
+    - .deploy-tag
