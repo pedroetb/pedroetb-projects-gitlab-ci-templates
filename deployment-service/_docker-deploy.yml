@@ -7,14 +7,20 @@ include:
   variables:
     NEW_COMPOSE_FILE: compose.yaml
     OLD_COMPOSE_FILE: docker-compose.yml
+    ENVIRONMENT_COMPOSE_FILE: compose.${CI_ENVIRONMENT_NAME}.yaml
   before_script:
     - echo "Find Compose files with known names automatically .."
     - >
       if [ -z ${COMPOSE_FILE} ];
       then
+        environmentComposeFilePath=$(find -type f -name "${ENVIRONMENT_COMPOSE_FILE}" -not -path "./build/*" | head -1);
         newComposeFilePath=$(find -type f -name "${NEW_COMPOSE_FILE}" -not -path "./build/*" | head -1);
         oldComposeFilePath=$(find -type f -name "${OLD_COMPOSE_FILE}" -not -path "./build/*" | head -1);
-        if [ -f ${newComposeFilePath} ];
+        if [ -f ${environmentComposeFilePath} ];
+        then
+          echo "Detected '${ENVIRONMENT_COMPOSE_FILE}' compose file, nice!";
+          composeFile="${ENVIRONMENT_COMPOSE_FILE}";
+        elif [ -f ${newComposeFilePath} ];
         then
           echo "Detected '${NEW_COMPOSE_FILE}' compose file, nice!";
           composeFile="${NEW_COMPOSE_FILE}";
