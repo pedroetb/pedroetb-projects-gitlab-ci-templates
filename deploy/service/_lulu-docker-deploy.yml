@@ -1,0 +1,12 @@
+include:
+  - local: '/deploy/service/_docker-deploy.yml'
+
+.deploy-lulu:
+  variables:
+    DEPLOY_ENVIRONMENT_NAME: lulu
+    SSH_REMOTE: ${LULU_SSH_REMOTE}
+    SSH_PORT: ${LULU_SSH_PORT}
+    DEPLOY_KEY: ${LULU_DEPLOY_KEY}
+    DD_TRAEFIK_DOMAIN: ${LULU_TRAEFIK_DOMAIN}
+    DD_VOL_ADDR: ${LULU_VOL_ADDR}
+    DD_VOL_DEVICE_PREFIX: ${LULU_VOL_DEVICE_PREFIX}

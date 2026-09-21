@@ -1,0 +1,15 @@
+include:
+  - local: '/deploy/service/_museo-docker-deploy.yml'
+
+🤞 deploy-museo:
+  extends:
+    - .docker-deploy
+    - .deploy-museo
+    - .deploy-branch-rules
+
+🚀 deploy-museo:
+  extends:
+    - .docker-deploy
+    - .deploy-museo
+    - .deploy-tag-rules
+    - .deploy-production-confirmation

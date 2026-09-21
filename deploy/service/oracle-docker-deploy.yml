@@ -1,0 +1,15 @@
+include:
+  - local: '/deploy/service/_oracle-docker-deploy.yml'
+
+🤞 deploy-oracle:
+  extends:
+    - .docker-deploy
+    - .deploy-oracle
+    - .deploy-branch-rules
+
+🚀 deploy-oracle:
+  extends:
+    - .docker-deploy
+    - .deploy-oracle
+    - .deploy-tag-rules
+    - .deploy-production-confirmation

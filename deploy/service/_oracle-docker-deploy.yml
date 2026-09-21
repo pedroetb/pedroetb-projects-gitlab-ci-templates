@@ -1,0 +1,12 @@
+include:
+  - local: '/deploy/service/_docker-deploy.yml'
+
+.deploy-oracle:
+  variables:
+    DEPLOY_ENVIRONMENT_NAME: oracle
+    SSH_REMOTE: ${ORACLE_SSH_REMOTE}
+    SSH_PORT: ${ORACLE_SSH_PORT}
+    DEPLOY_KEY: ${ORACLE_DEPLOY_KEY}
+    DD_TRAEFIK_DOMAIN: ${ORACLE_TRAEFIK_DOMAIN}
+    DD_VOL_ADDR: ${ORACLE_VOL_ADDR}
+    DD_VOL_DEVICE_PREFIX: ${ORACLE_VOL_DEVICE_PREFIX}
