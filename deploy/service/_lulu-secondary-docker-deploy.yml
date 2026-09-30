@@ -1,0 +1,12 @@
+include:
+  - local: '/deploy/service/_docker-deploy.yml'
+
+.deploy-lulu-secondary:
+  variables:
+    DEPLOY_ENVIRONMENT_NAME: lulu-secondary
+    SSH_REMOTE: ${LULU_SECONDARY_SSH_REMOTE}
+    SSH_PORT: ${LULU_SECONDARY_SSH_PORT}
+    DEPLOY_KEY: ${LULU_SECONDARY_DEPLOY_KEY}
+    DD_TRAEFIK_DOMAIN: ${LULU_SECONDARY_TRAEFIK_DOMAIN}
+    DD_VOL_ADDR: ${LULU_SECONDARY_VOL_ADDR}
+    DD_VOL_DEVICE_PREFIX: ${LULU_SECONDARY_VOL_DEVICE_PREFIX}

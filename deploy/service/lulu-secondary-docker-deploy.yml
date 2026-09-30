@@ -1,0 +1,14 @@
+include:
+  - local: '/deploy/service/_lulu-secondary-docker-deploy.yml'
+
+🤞 deploy-lulu-secondary:
+  extends:
+    - .docker-deploy
+    - .deploy-lulu-secondary
+    - .deploy-branch-rules
+
+🚀 deploy-lulu-secondary:
+  extends:
+    - .docker-deploy
+    - .deploy-lulu-secondary
+    - .deploy-tag-rules

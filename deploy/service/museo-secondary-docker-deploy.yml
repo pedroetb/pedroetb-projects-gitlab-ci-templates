@@ -1,0 +1,14 @@
+include:
+  - local: '/deploy/service/_museo-secondary-docker-deploy.yml'
+
+🤞 deploy-museo-secondary:
+  extends:
+    - .docker-deploy
+    - .deploy-museo-secondary
+    - .deploy-branch-rules
+
+🚀 deploy-museo-secondary:
+  extends:
+    - .docker-deploy
+    - .deploy-museo-secondary
+    - .deploy-tag-rules
