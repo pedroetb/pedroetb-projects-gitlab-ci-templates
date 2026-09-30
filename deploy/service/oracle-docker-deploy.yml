@@ -12,4 +12,3 @@ include:
     - .docker-deploy
     - .deploy-oracle
     - .deploy-tag-rules
-    - .deploy-production-confirmation

@@ -9,9 +9,6 @@
     name: ${DEPLOY_ENVIRONMENT_NAME}
     url: ${DEPLOY_ENVIRONMENT_URL}
 
-.deploy-production-confirmation:
-  manual_confirmation: "🌵 Penco, are you sure about deploying to production?"
-
 # Common configuration in relation to the repository events that trigger service deployment jobs.
 
 .deploy-branch-rules:
